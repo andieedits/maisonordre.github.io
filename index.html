@@ -95,9 +95,14 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
     <p class="eyebrow">✦ You're Invited ✦</p>
     <h1 class="intro-title">What's Your<br><em>Wedding Vibe?</em></h1>
     <p class="intro-sub">5 quick questions to find your party personality — so the couple can seat you with your people.</p>
-    <div class="couple-box">
-      <div class="lbl">You're attending</div>
-      <div class="couple-names" id="coupleDisplay">—</div>
+    <div class="couple-box" id="coupleBox">
+
+      <div class="lbl">You're attending the wedding of</div>
+      <div class="couple-names" id="coupleDisplay" style="display:none">—</div>
+      <input type="text" id="coupleInput"
+        placeholder="e.g. Sarah & James"
+        style="border:none;background:transparent;font-family:'Playfair Display',serif;font-size:19px;font-weight:400;color:var(--ink);text-align:center;width:100%;outline:none;"
+        autocomplete="off"/>
     </div>
     <div class="name-wrap">
       <label>Your Name</label>
@@ -178,7 +183,24 @@ resetScores();
 function initCoupleName(){
   const p=new URLSearchParams(window.location.search);
   const couple=p.get('couple')||p.get('c');
-  document.getElementById('coupleDisplay').textContent=couple?decodeURIComponent(couple):'Your Couple';
+  const display=document.getElementById('coupleDisplay');
+  const input=document.getElementById('coupleInput');
+  if(couple){
+    // URL param present — show locked display, hide input
+    const name=decodeURIComponent(couple.replace(/\+/g,' '));
+    display.textContent=name; display.style.display='block';
+    input.style.display='none';
+  } else {
+    // No param — show editable input so guest can type couple name
+    display.style.display='none'; input.style.display='block';
+    input.placeholder='Type the couple\'s names e.g. Sarah & James';
+  }
+}
+function getCoupleName(){
+  const p=new URLSearchParams(window.location.search);
+  const couple=p.get('couple')||p.get('c');
+  if(couple) return decodeURIComponent(couple.replace(/\+/g,' '));
+  return document.getElementById('coupleInput').value.trim()||'the couple';
 }
 initCoupleName();
 
@@ -228,10 +250,9 @@ function copyCode(){
   });
 }
 function shareResult(){
-  const p=new URLSearchParams(window.location.search);
-  const couple=p.get('couple')||p.get('c')||'the couple';
+  const couple=getCoupleName();
   const winner=Object.entries(scores).sort((a,b)=>b[1]-a[1])[0][0];
-  const text=`I just found my wedding vibe for ${decodeURIComponent(couple)}'s wedding!\n\nI'm ${VIBES[winner].label} ${VIBES[winner].emoji}\nMy vibe code: ${vibeCode}\n\nFind yours 👉 ${window.location.origin+window.location.pathname}`;
+  const text=`I just found my wedding vibe for ${couple}'s wedding!\n\nI'm ${VIBES[winner].label} ${VIBES[winner].emoji}\nMy vibe code: ${vibeCode}\n\nFind yours 👉 ${window.location.origin+window.location.pathname}`;
   if(navigator.share){navigator.share({title:'My Wedding Vibe',text});}
   else{navigator.clipboard?.writeText(text).then(()=>{const b=document.querySelector('.btn-share');b.textContent='✓ Copied!';setTimeout(()=>b.textContent='📤 Share My Result',2500);});}
 }
