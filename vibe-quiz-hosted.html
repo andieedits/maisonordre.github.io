@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>What's Your Wedding Vibe? ✨ | MaisonOrdre</title>
+<meta name="description" content="Find your wedding personality in 5 questions. Get your Vibe Code to send back to the couple!">
+<meta property="og:title" content="What's Your Wedding Vibe? ✨"/>
+<meta property="og:description" content="5 fun questions to discover your wedding personality. Takes 60 seconds!"/>
+<meta property="og:type" content="website"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;1,400&family=DM+Sans:wght@200;300;400&family=Cormorant+Garamond:ital,wght@0,300;1,300&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#fdf7f4;--card:#ffffff;--ink:#1a1118;--rose:#d4736a;--rose-d:#c0605a;--primary-light:rgba(212,115,106,.1);--blush:#ebb5a4;--sage:#7a9e86;--gold:#c9a96e;--muted:#9a8890;--border:rgba(180,140,130,.2);}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);font-family:'DM Sans',sans-serif;font-weight:300;color:var(--ink);min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding:32px 20px 60px;position:relative;overflow-x:hidden;}
+body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 70% 50% at 15% 20%,rgba(212,115,106,.07) 0%,transparent 60%),radial-gradient(ellipse 60% 60% at 85% 80%,rgba(122,158,134,.08) 0%,transparent 60%);pointer-events:none;z-index:0;}
+.petal{position:fixed;width:7px;height:11px;border-radius:50% 50% 50% 0;opacity:.1;pointer-events:none;animation:drift linear infinite;z-index:0;}
+@keyframes drift{0%{transform:translateY(-20px) rotate(0deg);opacity:0;}10%{opacity:.1;}90%{opacity:.06;}100%{transform:translateY(110vh) rotate(360deg);opacity:0;}}
+.brand-bar{position:relative;z-index:1;text-align:center;margin-bottom:28px;}
+.brand-name{font-family:'Cormorant Garamond',serif;font-size:15px;font-style:italic;color:var(--muted);letter-spacing:2px;}
+.brand-dot{display:inline-block;width:4px;height:4px;background:var(--gold);border-radius:50%;margin:0 8px;vertical-align:middle;}
+.card{position:relative;z-index:1;background:var(--card);border:1px solid var(--border);border-radius:24px;box-shadow:0 4px 48px rgba(0,0,0,.07);max-width:520px;width:100%;overflow:hidden;}
+.card-footer-strip{padding:14px 36px;border-top:1px solid var(--border);text-align:center;font-size:11px;color:var(--muted);}
+.card-footer-strip em{font-style:italic;font-family:'Cormorant Garamond',serif;color:var(--rose);}
+.card-footer-strip a{color:var(--gold);text-decoration:none;font-size:11px;}
+.card-footer-strip a:hover{text-decoration:underline;}
+.screen{display:none;padding:42px 38px;}
+.screen.active{display:block;animation:fadeUp .35s ease;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+.eyebrow{font-size:10px;letter-spacing:5px;text-transform:uppercase;color:var(--blush);margin-bottom:12px;text-align:center;}
+.intro-title{font-family:'Playfair Display',serif;font-size:36px;font-weight:400;line-height:1.1;text-align:center;margin-bottom:10px;}
+.intro-title em{font-style:italic;color:var(--rose);}
+.intro-sub{font-size:13px;color:var(--muted);line-height:1.7;text-align:center;max-width:310px;margin:0 auto 26px;}
+.couple-box{background:var(--primary-light);border:1px solid var(--border);border-radius:14px;padding:14px 20px;text-align:center;margin-bottom:22px;}
+.couple-box .lbl{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-bottom:3px;}
+.couple-box .couple-names{font-family:'Playfair Display',serif;font-size:19px;font-weight:400;color:var(--ink);}
+.name-wrap{margin-bottom:20px;}
+.name-wrap label{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:7px;}
+.name-wrap input{width:100%;padding:12px 16px;border:1.5px solid var(--border);border-radius:12px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:300;color:var(--ink);background:var(--bg);outline:none;transition:border-color .2s;text-align:center;}
+.name-wrap input:focus{border-color:var(--rose);}
+.btn-primary{width:100%;padding:14px;background:var(--rose);color:white;border:none;border-radius:12px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:400;cursor:pointer;transition:background .2s,transform .1s;}
+.btn-primary:hover{background:var(--rose-d);transform:translateY(-1px);}
+.progress-wrap{margin-bottom:24px;}
+.progress-top{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-bottom:6px;}
+.progress-bar{height:3px;background:var(--border);border-radius:100px;overflow:hidden;}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--sage),var(--rose));border-radius:100px;transition:width .4s ease;}
+.q-emoji{font-size:36px;text-align:center;margin-bottom:12px;}
+.q-text{font-family:'Playfair Display',serif;font-size:20px;font-weight:400;line-height:1.3;text-align:center;margin-bottom:22px;}
+.options{display:grid;gap:9px;}
+.option-btn{display:flex;align-items:center;gap:12px;padding:12px 15px;border:1.5px solid var(--border);border-radius:12px;background:var(--card);cursor:pointer;text-align:left;font-family:'DM Sans',sans-serif;transition:all .18s;animation:fadeUp .3s ease both;}
+.option-btn:hover{border-color:var(--rose);background:var(--primary-light);transform:translateY(-2px);}
+.option-btn.selected{border-color:var(--rose);background:var(--primary-light);}
+.opt-emoji{font-size:18px;flex-shrink:0;}
+.opt-text{font-size:13px;font-weight:300;color:var(--ink);line-height:1.4;}
+.result-inner{text-align:center;}
+.result-emoji{font-size:66px;margin-bottom:10px;animation:pop .5s cubic-bezier(.34,1.56,.64,1);}
+@keyframes pop{from{transform:scale(.4);opacity:0;}to{transform:scale(1);opacity:1;}}
+.result-hi{font-size:12px;color:var(--muted);letter-spacing:1px;margin-bottom:4px;}
+.result-badge{display:inline-block;padding:8px 24px;border-radius:100px;font-family:'Playfair Display',serif;font-size:19px;font-weight:400;margin-bottom:14px;border:2px solid;}
+.result-desc{font-size:13px;line-height:1.8;color:var(--muted);max-width:320px;margin:0 auto 20px;}
+.traits{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-bottom:24px;}
+.trait{padding:4px 11px;border-radius:100px;font-size:11px;font-weight:400;border:1.5px solid;}
+.code-box{background:var(--bg);border:1px solid var(--border);border-radius:14px;padding:18px 20px;margin-bottom:10px;}
+.code-label{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-bottom:6px;}
+.code-value{font-family:'Playfair Display',serif;font-size:26px;font-weight:400;letter-spacing:4px;color:var(--ink);margin-bottom:3px;}
+.code-hint{font-size:11px;color:var(--muted);}
+.share-box{background:rgba(122,158,134,.08);border:1px solid rgba(122,158,134,.25);border-radius:14px;padding:16px 18px;margin-bottom:20px;text-align:left;}
+.share-box-title{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--sage);margin-bottom:8px;font-weight:400;}
+.share-steps{list-style:none;}
+.share-steps li{font-size:12px;color:var(--ink);padding:3px 0;display:flex;gap:8px;line-height:1.5;}
+.share-steps li span{color:var(--rose);font-weight:400;flex-shrink:0;}
+.btn-copy{width:100%;padding:13px;background:var(--ink);color:var(--bg);border:none;border-radius:12px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:400;cursor:pointer;margin-bottom:10px;transition:opacity .2s;}
+.btn-copy:hover{opacity:.85;}
+.btn-share{width:100%;padding:11px;border:1.5px solid var(--border);border-radius:12px;background:transparent;color:var(--muted);font-family:'DM Sans',sans-serif;font-size:12px;cursor:pointer;transition:all .2s;margin-bottom:8px;}
+.btn-share:hover{border-color:var(--rose);color:var(--rose);}
+.btn-retake{width:100%;padding:10px;border:none;background:transparent;color:var(--muted);font-family:'DM Sans',sans-serif;font-size:12px;cursor:pointer;text-decoration:underline;opacity:.7;}
+@media(max-width:480px){.screen{padding:30px 22px;}.intro-title{font-size:28px;}.q-text{font-size:17px;}}
+</style>
+</head>
+<body>
+
+<div class="petal" style="left:5%;background:#d4736a;animation-duration:13s;animation-delay:0s;"></div>
+<div class="petal" style="left:22%;background:#7a9e86;animation-duration:18s;animation-delay:3s;"></div>
+<div class="petal" style="left:55%;background:#b8a8d4;animation-duration:15s;animation-delay:6s;"></div>
+<div class="petal" style="left:78%;background:#c9a96e;animation-duration:19s;animation-delay:2s;"></div>
+<div class="petal" style="left:90%;background:#ebb5a4;animation-duration:14s;animation-delay:8s;"></div>
+
+<div class="brand-bar">
+  <span class="brand-name">Maison<span class="brand-dot"></span>Ordre</span>
+</div>
+
+<div class="card">
+  <!-- INTRO -->
+  <div class="screen active" id="s-intro">
+    <p class="eyebrow">✦ You're Invited ✦</p>
+    <h1 class="intro-title">What's Your<br><em>Wedding Vibe?</em></h1>
+    <p class="intro-sub">5 quick questions to find your party personality — so the couple can seat you with your people.</p>
+    <div class="couple-box">
+      <div class="lbl">You're attending</div>
+      <div class="couple-names" id="coupleDisplay">—</div>
+    </div>
+    <div class="name-wrap">
+      <label>Your Name</label>
+      <input type="text" id="guestName" placeholder="Enter your name..." autocomplete="given-name"/>
+    </div>
+    <button class="btn-primary" onclick="startQuiz()">Find My Vibe ✨</button>
+  </div>
+
+  <!-- QUIZ -->
+  <div class="screen" id="s-quiz">
+    <div class="progress-wrap">
+      <div class="progress-top"><span id="qLabel">Question 1 of 5</span><span id="qPct">20%</span></div>
+      <div class="progress-bar"><div class="progress-fill" id="qFill" style="width:20%"></div></div>
+    </div>
+    <div class="q-emoji" id="qEmoji"></div>
+    <div class="q-text" id="qText"></div>
+    <div class="options" id="qOptions"></div>
+  </div>
+
+  <!-- RESULT -->
+  <div class="screen" id="s-result">
+    <div class="result-inner">
+      <div class="result-emoji" id="rEmoji"></div>
+      <div class="result-hi">Your wedding vibe is…</div>
+      <div class="result-badge" id="rBadge"></div>
+      <p class="result-desc" id="rDesc"></p>
+      <div class="traits" id="rTraits"></div>
+      <div class="code-box">
+        <div class="code-label">✦ Your Vibe Code</div>
+        <div class="code-value" id="rCode"></div>
+        <div class="code-hint">Send this code back to the couple with your RSVP 💌</div>
+      </div>
+      <div class="share-box">
+        <div class="share-box-title">What to do next</div>
+        <ul class="share-steps">
+          <li><span>1.</span> Copy your Vibe Code above</li>
+          <li><span>2.</span> Reply to your RSVP or message the couple</li>
+          <li><span>3.</span> Include your name + code so they can seat you</li>
+          <li><span>4.</span> You'll be seated with your people! 🌸</li>
+        </ul>
+      </div>
+      <button class="btn-copy" onclick="copyCode()">📋 Copy My Vibe Code</button>
+      <button class="btn-share" onclick="shareResult()">📤 Share My Result</button>
+      <button class="btn-retake" onclick="retake()">Retake Quiz</button>
+    </div>
+  </div>
+
+  <div class="card-footer-strip">
+    Powered by <em>MaisonOrdre</em> &nbsp;·&nbsp;
+    <a href="https://www.etsy.com/shop/MaisonOrdreIT" target="_blank">Get Wed &amp; Seated for your wedding →</a>
+  </div>
+</div>
+
+<script>
+const VIBES={
+  wildcard:   {label:'The Wildcard',    emoji:'🎲',color:'#e07b6a',light:'rgba(224,123,106,.13)',traits:['Spontaneous','Hilarious','Unpredictable'],desc:"You're the guest who makes unexpected toasts, starts the conga line, and ends up in every photo."},
+  romantic:   {label:'The Romantic',    emoji:'🌹',color:'#d4736a',light:'rgba(212,115,106,.13)',traits:['Sentimental','Warm','Loves love'],desc:"You cried at the rehearsal dinner and you're not even sorry. You believe in love stories, long hugs, and meaningful moments."},
+  socialite:  {label:'The Socialite',   emoji:'🥂',color:'#c9a96e',light:'rgba(201,169,110,.13)',traits:['Charming','Connected','Magnetic'],desc:"You'll know everyone's name by cocktail hour and you're already planning the after-party."},
+  philosopher:{label:'The Philosopher', emoji:'🌙',color:'#b8a8d4',light:'rgba(184,168,212,.13)',traits:['Thoughtful','Deep','Curious'],desc:"You'll have the most meaningful conversation of the night with someone you just met."},
+  dancer:     {label:'The Dancer',      emoji:'💃',color:'#ebb5a4',light:'rgba(235,181,164,.13)',traits:['Energetic','Joyful','Fearless'],desc:"You've been rehearsing your moves since the invite arrived. The dancefloor is your domain."},
+  foodie:     {label:'The Foodie',      emoji:'🍰',color:'#8abcd1',light:'rgba(138,188,209,.13)',traits:['Discerning','Enthusiastic','In-the-know'],desc:"You came for the people. You stayed for the cake."},
+  planner:    {label:'The Planner',     emoji:'📋',color:'#7a9e86',light:'rgba(122,158,134,.13)',traits:['Reliable','Organised','Calm'],desc:"You've already checked the weather, memorised the schedule, and have an emergency kit in your bag."},
+  crier:      {label:'The Happy Crier', emoji:'🥹',color:'#e8c97a',light:'rgba(232,201,122,.13)',traits:['Emotional','Genuine','Big-hearted'],desc:"You don't just feel the moment — you ARE the moment. Your happy tears are contagious."},
+};
+const QUESTIONS=[
+  {emoji:'💌',text:"The invite arrives. What's your first reaction?",options:[{text:"Start crying — so happy for them",vibe:'crier'},{text:"Plan outfit and check the date immediately",vibe:'planner'},{text:"Text everyone you know that you're going",vibe:'socialite'},{text:"Wonder if there'll be a good dancefloor",vibe:'dancer'}]},
+  {emoji:'🥂',text:"Cocktail hour. Where are you?",options:[{text:"Deep in conversation with someone new",vibe:'philosopher'},{text:"Assessing the canapés with expert focus",vibe:'foodie'},{text:"Floating around, saying hi to everyone",vibe:'socialite'},{text:"Near the couple, wiping a tear",vibe:'romantic'}]},
+  {emoji:'🎤',text:"The speeches begin. You…",options:[{text:"Cry before the first sentence is done",vibe:'crier'},{text:"Listen closely — you love a love story",vibe:'romantic'},{text:"Quietly notice how they could have done better",vibe:'planner'},{text:"Wonder if you could spontaneously add one",vibe:'wildcard'}]},
+  {emoji:'🎵',text:"First song. You…",options:[{text:"Are first on the dancefloor, obviously",vibe:'dancer'},{text:"Drag your whole table out to dance",vibe:'socialite'},{text:"Close your eyes and feel the moment",vibe:'romantic'},{text:"Make your way straight to the dessert table",vibe:'foodie'}]},
+  {emoji:'🌙',text:"End of night. Your vibe?",options:[{text:"Shoes off, still dancing at midnight",vibe:'dancer'},{text:"Having the best conversation outside",vibe:'philosopher'},{text:"Coordinating the after-party",vibe:'wildcard'},{text:"Hugging the couple, quietly emotional",vibe:'crier'}]},
+];
+
+let guestName='',currentQ=0,scores={},vibeCode='';
+function resetScores(){Object.keys(VIBES).forEach(k=>scores[k]=0);}
+resetScores();
+
+// Read couple name from URL: ?couple=Sarah+%26+James
+function initCoupleName(){
+  const p=new URLSearchParams(window.location.search);
+  const couple=p.get('couple')||p.get('c');
+  document.getElementById('coupleDisplay').textContent=couple?decodeURIComponent(couple):'Your Couple';
+}
+initCoupleName();
+
+function startQuiz(){
+  guestName=document.getElementById('guestName').value.trim()||'Guest';
+  currentQ=0; resetScores();
+  showScreen('s-quiz'); renderQ();
+}
+function renderQ(){
+  const q=QUESTIONS[currentQ],total=QUESTIONS.length,pct=Math.round(((currentQ+1)/total)*100);
+  document.getElementById('qLabel').textContent=`Question ${currentQ+1} of ${total}`;
+  document.getElementById('qPct').textContent=`${pct}%`;
+  document.getElementById('qFill').style.width=`${pct}%`;
+  document.getElementById('qEmoji').textContent=q.emoji;
+  document.getElementById('qText').textContent=q.text;
+  const opts=document.getElementById('qOptions'); opts.innerHTML='';
+  q.options.forEach((opt,i)=>{
+    const btn=document.createElement('button');
+    btn.className='option-btn'; btn.style.animationDelay=`${i*.05}s`;
+    btn.innerHTML=`<span class="opt-emoji">${VIBES[opt.vibe].emoji}</span><span class="opt-text">${opt.text}</span>`;
+    btn.onclick=()=>{
+      document.querySelectorAll('.option-btn').forEach(b=>b.style.pointerEvents='none');
+      btn.classList.add('selected'); scores[opt.vibe]++;
+      setTimeout(()=>{currentQ++;currentQ<QUESTIONS.length?renderQ():showResult();},380);
+    };
+    opts.appendChild(btn);
+  });
+}
+function showResult(){
+  const winner=Object.entries(scores).sort((a,b)=>b[1]-a[1])[0][0];
+  const v=VIBES[winner];
+  vibeCode=`${guestName.split(' ')[0].toUpperCase()}-${winner.toUpperCase()}`;
+  document.getElementById('rEmoji').textContent=v.emoji;
+  const badge=document.getElementById('rBadge');
+  badge.textContent=v.label; badge.style.background=v.light;
+  badge.style.borderColor=v.color; badge.style.color=v.color;
+  document.getElementById('rDesc').textContent=v.desc;
+  document.getElementById('rTraits').innerHTML=v.traits.map(t=>`<span class="trait" style="background:${v.light};border-color:${v.color}44;color:${v.color}">${t}</span>`).join('');
+  document.getElementById('rCode').textContent=vibeCode;
+  showScreen('s-result');
+}
+function copyCode(){
+  navigator.clipboard?.writeText(vibeCode).then(()=>{
+    const b=document.querySelector('.btn-copy');
+    b.textContent='✓ Copied!'; b.style.background='var(--sage)';
+    setTimeout(()=>{b.textContent='📋 Copy My Vibe Code';b.style.background='var(--ink)';},2500);
+  });
+}
+function shareResult(){
+  const p=new URLSearchParams(window.location.search);
+  const couple=p.get('couple')||p.get('c')||'the couple';
+  const winner=Object.entries(scores).sort((a,b)=>b[1]-a[1])[0][0];
+  const text=`I just found my wedding vibe for ${decodeURIComponent(couple)}'s wedding!\n\nI'm ${VIBES[winner].label} ${VIBES[winner].emoji}\nMy vibe code: ${vibeCode}\n\nFind yours 👉 ${window.location.origin+window.location.pathname}`;
+  if(navigator.share){navigator.share({title:'My Wedding Vibe',text});}
+  else{navigator.clipboard?.writeText(text).then(()=>{const b=document.querySelector('.btn-share');b.textContent='✓ Copied!';setTimeout(()=>b.textContent='📤 Share My Result',2500);});}
+}
+function retake(){currentQ=0;resetScores();showScreen('s-quiz');renderQ();}
+function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');}
+document.getElementById('guestName').addEventListener('keydown',e=>{if(e.key==='Enter')startQuiz();});
+</script>
+</body>
+</html>
